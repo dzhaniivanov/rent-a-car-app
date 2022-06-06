@@ -6,7 +6,6 @@ const LogoContainer = styled.div`
   ${tw`
     flex
     items-center
-
     `}
 `;
 
@@ -31,12 +30,12 @@ const Image = styled.div`
 `;
 
 export function Logo() {
-    return (
-        <LogoContainer>
-            <Image>
-                <img src={CarLogoImg} alt="logo" />
-            </Image>
-            <LogoText>CarRent</LogoText>
-        </LogoContainer>
-    )
+  return (
+    <LogoContainer>
+      <Image>
+        <img src={CarLogoImg} alt="logo" />
+      </Image>
+      <LogoText>CarRent</LogoText>
+    </LogoContainer>
+  );
 }
