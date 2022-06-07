@@ -19,7 +19,7 @@ const Container = styled.div`
 
 const Title = styled.h2`
   ${tw`
-        text-xl 
+        text-3xl 
         lg:text-5xl 
         text-black 
         font-extrabold 
