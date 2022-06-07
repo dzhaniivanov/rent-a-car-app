@@ -4,8 +4,14 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import { Button } from "../button";
 import { Marginer } from "../marginer";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import { useState } from "react";
 
 const CardContainer = styled.div`
+  min-height: 4.3em;
+  box-shadow: 0 1.3px 12px -3px rgba(0, 0, 0, 0.4);
+
   ${tw`
 flex 
 justify-center 
@@ -18,14 +24,15 @@ pr-2
 pl-2 
 md:pt-2 
 md:pb-2 
-md:pl-6 
-md:pr-6 
-`}
+md:pl-9
+md:pr-9 
+`};
 `;
 
 const ItemContainer = styled.div`
   ${tw`
     flex
+    relative
 `}
 `;
 
@@ -45,6 +52,7 @@ const Name = styled.span`
         text-gray-600 
         text-xs 
         md:text-sm 
+         cursor-pointer
     `}
 `;
 
@@ -60,24 +68,53 @@ const LineSeparator = styled.span`
   `}
 `;
 
+const DateCalendar = styled(Calendar)`
+  position: absolute;
+  max-width: none;
+  top: 3.5em;
+  left: -2em;
+`;
+
 export function BookCard() {
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [isStartCalendarOpen, setStartCalendarOpen] = useState(false);
+  const [returnDate, setReturnDate] = useState<Date>(new Date());
+  const [isReturnCalendarOpen, setReturnCalendarOpen] = useState(false);
+
+  const toggleStartDateCalendar = () => {
+    setStartCalendarOpen(!isStartCalendarOpen);
+    if (isReturnCalendarOpen) setReturnCalendarOpen(false);
+
+  };
+
+  const toggleReturnDateCalendar = () => {
+    setReturnCalendarOpen(!isReturnCalendarOpen);
+    if (isStartCalendarOpen) setStartCalendarOpen(false);
+  };
+
   return (
     <CardContainer>
       <ItemContainer>
         <Icon>
           <FontAwesomeIcon icon={faCalendarAlt} />
         </Icon>
-        <Name>Pick Up Date</Name>
+        <Name onClick={toggleStartDateCalendar}>Pick Up Date</Name>
+        {isStartCalendarOpen && (
+          <DateCalendar value={startDate} onChange={setStartDate as any} />
+        )}
       </ItemContainer>
       <LineSeparator />
       <ItemContainer>
         <Icon>
           <FontAwesomeIcon icon={faCalendarAlt} />
         </Icon>
-        <Name>Return Date</Name>
+        <Name onClick={toggleReturnDateCalendar}>Return Date</Name>
+        {isReturnCalendarOpen && (
+          <DateCalendar value={returnDate} onChange={setReturnDate as any} />
+        )}
       </ItemContainer>
       <Marginer direction="horizontal" margin="2em" />
-      <Button text="Book Your Ride"/>
+      <Button text="Book Your Ride" />
     </CardContainer>
   );
 }
