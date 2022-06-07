@@ -10,6 +10,7 @@ const FooterContainer = styled.div`
   background-color: #1d2124;
   ${tw`
     flex
+    flex-col
     min-w-full 
     pt-10
     md:pt-16
@@ -26,8 +27,26 @@ const InnerContainer = styled.div`
     h-full
     max-w-screen-2xl
     flex-wrap
-    justify-center
     `}
+`;
+
+const BottomContainer = styled.div`
+  ${tw`
+         w-full
+        flex
+        max-w-screen-2xl
+        justify-center
+        md:justify-start
+        mt-5
+        md:mt-1
+    `}
+`;
+
+const CopyrightText = styled.small`
+  font-size: 12px;
+  ${tw`
+        text-gray-300
+    `};
 `;
 
 const AboutContainer = styled.div`
@@ -203,6 +222,12 @@ export function Footer() {
           </HorizontalContainer>
         </SectionContainer>
       </InnerContainer>
+      <BottomContainer>
+        <CopyrightText>
+          Copyright &copy; {new Date().getFullYear()} CarRent. All rights
+          reserved.
+        </CopyrightText>
+      </BottomContainer>
     </FooterContainer>
   );
 }
